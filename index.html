@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Number Generator</title>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .record {
+            animation: fadeIn 0.5s;
+        }
+    </style>
+    <script>
+        function generateRandomNumbers() {
+            var records = document.getElementById("records").value;
+            var maximum = document.getElementById("maximum").value;
+            var output = document.getElementById("output");
+            output.innerHTML = "";
+
+            var recordList = records.split('\n');
+
+            for (var i = 0; i < recordList.length; i++) {
+                (function (index) {
+                    setTimeout(function () {
+                        var randomNumber = generateUniqueRandomNumber(maximum)
+                        var recordElement = document.createElement("p");
+                        recordElement.classList.add("record");
+                        recordElement.innerHTML = "Record " + (index + 1) + ": " + recordList[index] + " - ตำแหน่ง: " + "<span id='randomNumber" + i + "'>" + randomNumber + "</span>";
+                        output.appendChild(recordElement);
+                    }, (index + 1) * 1000);
+                })(i);
+            }
+        }
+
+        var generatedNumbers = [];
+
+        function generateUniqueRandomNumber(maxValue) {
+            
+            var randomNumber;
+
+            do {
+                randomNumber = Math.floor(Math.random() * 50) + 1;
+            } while (generatedNumbers.includes(randomNumber) || randomNumber > maxValue);
+
+            generatedNumbers.push(randomNumber);
+            return randomNumber;
+        }
+    </script>
+</head>
+<body>
+    <label for="records">Enter the records (one per line):</label>
+    <textarea name="records" id="records" rows="5" cols="30">
+beer
+pupae
+พี่หนึ่ง
+ปั้นปึง
+Atthawoot
+ชำนาญ
+F
+Aryo1สมพร
+Aryo2หลวงพี่
+G-Golf
+Benz
+โก้
+ออฟ
+Vittawat
+Jame
+Moss
+รัต
+พี่มดสปีด1
+พี่มดสปีด2มิว
+พี่มดสปีด3โตส
+พี่บิ้ก
+เสี่ยนัท
+Tum
+แพ็ค
+กาน
+Sitthipong
+DarkSeven
+พี่รวย
+P'newพี่เจ๋ง
+P'new
+แกน
+เจ้าชาย
+พี่จู
+    </textarea>
+    <label for="maximum">Max:</label>
+    <input name ="maximum" id="maximum" type="number" value="42">
+    <button onclick="generateRandomNumbers()">Generate</button>
+    <div id="output"></div>
+</body>
+</html>
