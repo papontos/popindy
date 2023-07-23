@@ -1,8 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Number Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator - Simple Utility Tool</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .random-generator-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .random-generator-form label {
+            margin-bottom: 5px;
+        }
+
+        .random-generator-form textarea,
+        .random-generator-form input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .random-generator-form button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .output {
+            margin-top: 20px;
+        }
+
+        .record {
+            animation: fadeIn 0.5s;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -12,12 +61,16 @@
             }
         }
 
-        .record {
-            animation: fadeIn 0.5s;
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
     </style>
     <script>
         function generateRandomNumbers() {
+
             var records = document.getElementById("records").value;
             var maximum = document.getElementById("maximum").value;
             var output = document.getElementById("output");
@@ -28,7 +81,7 @@
             for (var i = 0; i < recordList.length; i++) {
                 (function (index) {
                     setTimeout(function () {
-                        var randomNumber = generateUniqueRandomNumber(maximum)
+                        var randomNumber = generateUniqueRandomNumber(maximum);
                         var recordElement = document.createElement("p");
                         recordElement.classList.add("record");
                         recordElement.innerHTML = "Record " + (index + 1) + ": " + recordList[index] + " - ตำแหน่ง: " + "<span id='randomNumber" + i + "'>" + randomNumber + "</span>";
@@ -41,7 +94,6 @@
         var generatedNumbers = [];
 
         function generateUniqueRandomNumber(maxValue) {
-            
             var randomNumber;
 
             do {
@@ -54,11 +106,16 @@
     </script>
 </head>
 <body>
-    <label for="records">Enter the records (one per line):</label>
-    <textarea name="records" id="records" rows="5" cols="30"></textarea>
-    <label for="maximum">Max:</label>
-    <input name ="maximum" id="maximum" type="number" value="42">
-    <button onclick="generateRandomNumbers()">Generate</button>
-    <div id="output"></div>
+    <div>
+        <img src="image/flowerman.JPG" alt="Random Numbers" />
+    </div>
+    <form class="random-generator-form" onsubmit="return false;">
+        <label for="records">ใส่รายชื่อ (one per line):</label>
+        <textarea name="records" id="records" rows="5" cols="30" placeholder="Enter your records here"></textarea>
+        <label for="maximum">Max:</label>
+        <input name="maximum" id="maximum" type="number" value="42" placeholder="Enter the maximum value">
+        <button onclick="generateRandomNumbers()">Generate</button>
+    </form>
+    <div class="output" id="output"></div>
 </body>
 </html>
